@@ -1,16 +1,39 @@
-# 샘플 Python 스크립트입니다.
-
-# ⌃R을(를) 눌러 실행하거나 내 코드로 바꿉니다.
-# 클래스, 파일, 도구 창, 액션 및 설정을 어디서나 검색하려면 ⇧ 두 번을(를) 누릅니다.
+import re
+import requests
 
 
-def print_hi(name):
-    # 스크립트를 디버그하려면 하단 코드 줄의 중단점을 사용합니다.
-    print(f'Hi, {name}')  # 중단점을 전환하려면 ⌘F8을(를) 누릅니다.
+class Lottery:
+    def __int__(self):
+        pass
+
+    def consider_type(self):
+        """
+
+        :return:
+        """
 
 
-# 스크립트를 실행하려면 여백의 녹색 버튼을 누릅니다.
+class Parse:
+    def __init__(self, text):
+        self.origin_text = text
+
+    def consider_type(self):
+        """
+
+        :return:
+        """
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    numbers = "1,2,3,4,5,6"
 
-# https://www.jetbrains.com/help/pycharm/에서 PyCharm 도움말 참조
+    url = "https://dhlottery.co.kr/gameResult.do?method=myWinSearch" \
+          "&txtNo00=1&txtNo01=2&txtNo02=3&txtNo03=4&txtNo04=5&txtNo05=6&drwNo=1046"
+
+    # post 호출
+    # txtNo_1=1&txtNo_1=2&txtNo_1=3&txtNo_1=4&txtNo_1=5&txtNo_1=6
+
+    # url2 = "https://dhlottery.co.kr/gameResult.do?method=myWinNumberList2"
+    # form_data = {"txtNo_1": 1, "txtNo_1": 2, "txtNo_1": 3, "txtNo_1": 4, "txtNo_1": 5, "txtNo_1": 6}
+
+    a = requests.get()
