@@ -20,6 +20,7 @@ class Parse:
         self.origin_text = text
         self.parse_data = text
         self.separator = None
+        self.status_code = True
         print(f"기본 입력 텍스트 : {self.origin_text}")
 
     def consider_type(self):
@@ -28,23 +29,60 @@ class Parse:
         :return:
         """
 
-    def check_sepatator(self):
+    def _check_sepatator(self, text):
         # check separate character
         for separator in ALLOWED_PARSE_SEPARATORS:
-            if separator in self.origin_text:
-                self.separator = separator
+            if separator in text:
+                return separator
 
         print("Not found correct separator")
+        # TODO: raise하여 에러코드를 내뱉게 해야함
+        return False
 
-    def parse(self):
-        self.check_sepatator()
+    def parse(self, text):
+        self.separator = self._check_sepatator(text)
 
-        for separator in ALLOWED_PARSE_SEPARATORS:
+        if not self.separator or self.separator is None:
+            return text
 
+        parse_data = self.origin_text.split(self.separator)
 
+        try:
+            parse_data = [int(number) for number in parse_data]
+        except Exception as e:
+            pass
+
+        return parse_data
+
+    def validate_data(self, parse_data):
+        # parse_data가 리스트형이 아닐경우 탈락
+        if not isinstance(parse_data, list):
+            print("Must be parse data type is list type")
+            return False
+
+        # 최소 숫자 6개 이상
+        if len(parse_data) <= 5:
+            print("Must exist numbers more than 5")
+            return False
+
+        # 숫자 이외의 문자가 들어 갔을경우 아웃
+        for number in parse_data:
+            if not isinstance(number, int):
+                print(f"This character is not integer")
+                return False
+
+        return True
 
     def run(self):
-        self.parse()
+        parse_data = self.parse(self.origin_text)
+
+        status = self.validate_data(parse_data)
+        if not status:
+            print("오류로 인하여 재생성 필요")
+            self.status_code = status
+            return self.origin_text
+
+        self.parse_data = parse_data
         return self.parse_data
 
 
