@@ -5,8 +5,8 @@ ALLOWED_PARSE_SEPARATORS = [",", " "]
 
 
 class Lottery:
-    def __int__(self):
-        pass
+    def __init__(self):
+        self.type = ""
 
     def consider_type(self):
         """
@@ -15,19 +15,18 @@ class Lottery:
         """
 
 
-class Parse:
+class LotteryParser:
     def __init__(self, text):
         self.origin_text = text
         self.parse_data = text
         self.separator = None
         self.status_code = True
+
+        # TODO: 기본 로또 값에 의한 최소 길이 설정을 해야함
+        self.type = "nanum"
+        self.min_length = 6
+
         print(f"기본 입력 텍스트 : {self.origin_text}")
-
-    def consider_type(self):
-        """
-
-        :return:
-        """
 
     def _check_sepatator(self, text):
         # check separate character
@@ -87,11 +86,11 @@ class Parse:
 
 
 if __name__ == '__main__':
-    numbers = "1,2,3,4,5,6"
+    numbers = "1,2,3,4,5,6,12,3,3"
     url = "https://dhlottery.co.kr/gameResult.do?method=myWinSearch" \
           "&txtNo00=1&txtNo01=2&txtNo02=3&txtNo03=4&txtNo04=5&txtNo05=6&drwNo=1046"
 
-    a = Parse(numbers)
+    a = LotteryParser(numbers)
     result = a.run()
     print(f"변경된 것 : {result}")
     # post 호출
